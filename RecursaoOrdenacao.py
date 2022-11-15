@@ -58,9 +58,6 @@ def main():
     with open("entradas/entrada10.bin", "rb") as f:
         dicionario = pickle.load(f)
         matriculas = list(dicionario.keys())
-        m1 = dicionario[matriculas[0]]
-        m2 = dicionario[matriculas[1]]
-        nomes = sorted([m2[0], m1[0]])
-        print(int(matriculas[1][3:]))
+
 if __name__ == "__main__":
     main()
