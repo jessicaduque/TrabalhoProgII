@@ -118,17 +118,16 @@ def buscaBinariaAdaptada(lista, dicionario):
             max = meio - 1
     return len(lista)
 
+def criarArquivo(matriculas, dicionario):
+
 def main():
     with open("entradas/entrada100.bin", "rb") as f:
         dicionario = pickle.load(f)
         f.close()
     matriculas = list(dicionario.keys())
-    print(matriculas)
     mergeSort(matriculas, dicionario)
+    criarArquivo(matriculas, dicionario)
     print(buscaBinariaAdaptada(matriculas[::-1], dicionario))
-    #print(buscaBinaria())
-    #for a in matriculas:
-    #    print(dicionario[a])
 
 if __name__ == "__main__":
     main()
