@@ -72,11 +72,11 @@ def comparacao(dicionario, m1, m2):
     # Quarto critério: ordem alfabética
     nomes = [dicionario[m1][0], dicionario[m2][0]]
     nomesAlfa = sorted(nomes)
-    if(nomes != nomesAlfa):
+    if(nomes[0] == nomesAlfa[0]):
         return True
     else:
         if(nomes[0] != nomes[1]):
-            return True
+            return False
 
     # Quinto critério: matrícula
     matriculas = [int(m1[3:]), int(m2[3:])]
@@ -104,11 +104,9 @@ def buscaBinariaAdaptada(lista, dicionario):
         pontos2 = dicionario[lista[meio + 1]][2][0] + dicionario[lista[meio + 1]][2][1] + dicionario[lista[meio + 1]][2][2] + bonus
         
         if(pontos1 < 60 and pontos2 > 60):
-            print(dicionario[lista[meio + 1]][0])
             return len(lista[meio + 1:])
 
         if(pontos1 == 60):
-            print(dicionario[lista[meio]][0])
             return len(lista[meio:])
 
         if(pontos1 < 60):
@@ -119,6 +117,20 @@ def buscaBinariaAdaptada(lista, dicionario):
     return len(lista)
 
 def criarArquivo(matriculas, dicionario):
+	with open("saida.txt", "w", encoding="utf8") as arquivo:
+			for matricula in matriculas:
+				soma = dicionario[matricula][2][0] + dicionario[matricula][2][1] + dicionario[matricula][2][2]
+				if (dicionario[matricula][3]==0):
+					if soma==99:
+						linha=str(dicionario[matricula][0]) + " - " + str(soma) + " +1"
+					elif soma==100:
+						linha=str(dicionario[matricula][0]) + " - " + str(soma)
+					else:
+						linha=str(dicionario[matricula][0]) + " - " + str(soma) + " +2"
+					arquivo.write(linha+"\n")
+				else: 
+					linha=str(dicionario[matricula][0]) + " - " + str(soma)
+					arquivo.write(linha+"\n")
 
 def main():
     with open("entradas/entrada100.bin", "rb") as f:
