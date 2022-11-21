@@ -1,7 +1,38 @@
 import pickle
 
+def mergeSort(lista, dicionario):
+    if len(lista)>1:
+        meio = len(lista)//2
+        metadeEsquerda = lista[:meio]
+        metadeDireita = lista[meio:]
 
-def Comparacao(dicionario, m1, m2):
+        mergeSort(metadeEsquerda, dicionario)
+        mergeSort(metadeDireita, dicionario)
+
+        i=0
+        j=0
+        k=0
+        
+        while i < len(metadeEsquerda) and j < len(metadeDireita):
+            if comparacao(dicionario, metadeEsquerda[i], metadeDireita[j]):
+                lista[k]=metadeEsquerda[i]
+                i=i+1
+            else:
+                lista[k]=metadeDireita[j]
+                j=j+1
+            k=k+1
+
+        while i < len(metadeEsquerda):
+            lista[k]=metadeEsquerda[i]
+            i=i+1
+            k=k+1
+
+        while j < len(metadeDireita):
+            lista[k]=metadeDireita[j]
+            j=j+1
+            k=k+1
+
+def comparacao(dicionario, m1, m2):
 
     # Primeiro critério: nota total
     faltas1 = dicionario[m1][3]
@@ -58,6 +89,9 @@ def main():
     with open("entradas/entrada10.bin", "rb") as f:
         dicionario = pickle.load(f)
         matriculas = list(dicionario.keys())
+        mergeSort(matriculas, dicionario)
+    for a in matriculas:
+        print(dicionario[a])
 
 if __name__ == "__main__":
     main()
