@@ -85,13 +85,50 @@ def comparacao(dicionario, m1, m2):
     else:
         return False
 
+def buscaBinariaAdaptada(lista, dicionario):
+    max = len(lista) - 1
+    min = 0
+    while max >= min:
+        meio = ((max + min) // 2)
+
+        if(dicionario[lista[meio]][3] == 0):
+            bonus = 2
+        else:
+            bonus = 0
+        pontos1 = dicionario[lista[meio]][2][0] + dicionario[lista[meio]][2][1] + dicionario[lista[meio]][2][2] + bonus
+        
+        if(dicionario[lista[meio + 1]][3] == 0):
+            bonus = 2
+        else:
+            bonus = 0
+        pontos2 = dicionario[lista[meio + 1]][2][0] + dicionario[lista[meio + 1]][2][1] + dicionario[lista[meio + 1]][2][2] + bonus
+        
+        if(pontos1 < 60 and pontos2 > 60):
+            print(dicionario[lista[meio + 1]][0])
+            return len(lista[meio + 1:])
+
+        if(pontos1 == 60):
+            print(dicionario[lista[meio]][0])
+            return len(lista[meio:])
+
+        if(pontos1 < 60):
+            min = meio + 1
+
+        else:
+            max = meio - 1
+    return len(lista)
+
 def main():
-    with open("entradas/entrada10.bin", "rb") as f:
+    with open("entradas/entrada100.bin", "rb") as f:
         dicionario = pickle.load(f)
-        matriculas = list(dicionario.keys())
-        mergeSort(matriculas, dicionario)
-    for a in matriculas:
-        print(dicionario[a])
+        f.close()
+    matriculas = list(dicionario.keys())
+    print(matriculas)
+    mergeSort(matriculas, dicionario)
+    print(buscaBinariaAdaptada(matriculas[::-1], dicionario))
+    #print(buscaBinaria())
+    #for a in matriculas:
+    #    print(dicionario[a])
 
 if __name__ == "__main__":
     main()
