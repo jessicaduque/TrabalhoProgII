@@ -1,4 +1,5 @@
 import pickle
+import time
 
 def mergeSort(lista, dicionario):
     if len(lista)>1:
@@ -126,18 +127,18 @@ def criarArquivo(matriculas, dicionario):
             soma = dicionario[matricula][2][0] + dicionario[matricula][2][1] + dicionario[matricula][2][2]
             nome = str(dicionario[matricula][0])
             if(dicionario[matricula][3] == 0):
+                linha = " ".join([nome, "-", str(soma)])
                 if(soma == 99):
-                    linha = nome + " - " + str(soma) + " +1"
-                elif(soma == 100):
-                    linha = nome + " - " + str(soma)
-                else:
-                    linha = nome + " - " + str(soma) + " +2"
+                    linha = " ".join([nome, "-", str(soma), "+1"])
+                elif(soma > 99):
+                    linha = " ".join([nome, "-", str(soma), "+2"])
                 arquivo.write(linha+"\n")
             else:
-                linha = nome + " - " + str(soma)
+                linha = " ".join([nome, "-", str(soma)])
                 arquivo.write(linha+"\n")
 
 def main():
+    seconds = time.time()
     with open("entradas/entrada100000.bin", "rb") as f:
         dicionario = pickle.load(f)
         f.close()
@@ -145,6 +146,8 @@ def main():
     mergeSort(matriculas, dicionario)
     criarArquivo(matriculas, dicionario)
     print(buscaBinariaAdaptada(matriculas[::-1], dicionario))
+    final = time.time()
+    print(final - seconds)
 
 if __name__ == "__main__":
     main()
